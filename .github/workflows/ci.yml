@@ -29,9 +29,20 @@ jobs:
         run: npm test -- --coverage
         env:
             CI: true
+      - name: upload code coverage
+        uses: actions/upload-artifact@v1
+        with:
+            name: code-coverage
+            path: coverage
       - name: build the project
         if: github.event.action == 'push'
         run: npm run build
+      - name: upload build
+        if: github.event.action == 'push'
+        uses: actions/upload-artifact@v1
+        with:
+            name: build
+            path: build
       - name: Deploy to staging
         if: github.event.action == 'push'
         run: npx surge --project ./build --domain https://warlike-toy.surge.sh/
