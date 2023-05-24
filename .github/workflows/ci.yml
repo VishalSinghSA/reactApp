@@ -35,21 +35,21 @@ jobs:
             name: code-coverage
             path: coverage
       - name: build the project
-        if: github.event.action == 'push'
+        if: github.event_name == 'push'
         run: npm run build
       - name: upload build
-        if: github.event.action == 'push'
+        if: github.event_name == 'push'
         uses: actions/upload-artifact@v1
         with:
             name: build
             path: build
       - name: create a release
-        if: github.event.action == 'push' && github.ref == 'refs/heads/main'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: npx semantic-release
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Deploy to staging
-        if: github.event.action == 'push'
+        if: github.event_name == 'push'
         run: npx surge --project ./build --domain https://warlike-toy.surge.sh/
         env:
           SURGE_LOGIN: ${{ secrets.SURGE_LOGIN }}
