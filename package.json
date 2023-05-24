@@ -16,6 +16,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "format:check": "prettier --check src/*.{js,css}",
     "format": "prettier --write src/*.{js,css}"
   },
   "eslintConfig": {
@@ -37,6 +38,7 @@
     ]
   },
   "devDependencies": {
-    "prettier": "2.8.8"
+    "prettier": "2.8.8",
+    "semantic-release": "^21.0.2"
   }
 }
